@@ -1,0 +1,80 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.popup {
+  background: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+}
+.popup h2 {
+  margin: 0 0 0.5em 0;
+}
+.popup label {
+  font-size: 0.95em;
+}
+.popup input[type='text'],
+.popup input[type='password'] {
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 0.2em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.popup button {
+  padding: 0.6em;
+  border: none;
+  border-radius: 4px;
+  background: #0078d4;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+}
+.popup button:hover {
+  background: #005fa3;
+}
+.switch-link {
+  color: #0078d4;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.95em;
+  text-align: center;
+}
+.close-btn {
+  position: absolute;
+  top: 0.7em;
+  right: 1em;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #888;
+}
+.close-btn:hover {
+  color: #000;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+}

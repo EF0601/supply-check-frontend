@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supply Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="openLogin" style="margin:2em auto;display:block;">Login / Register</button>
+
+    <div id="loginOverlay" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Login</h2>
+                <label>Email
+                    <input type="text" name="loginEmail" required>
+                </label>
+                <label>Password
+                    <input type="password" name="loginPassword" required>
+                </label>
+                <button onclick="login()">Login</button>
+            <p class="error-message" id="loginErrorMessage"></p>
+            <div class="switch-link" onclick="showRegister()">Don't have an account? Register now!</div>
+        </div>
+    </div>
+
+    <div id="registerOverlay" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Register</h2>
+                <label>Email
+                    <input type="text" name="registerEmail" required>
+                </label>
+                <label>Display Name
+                    <input type="text" name="registerUsername" required>
+                </label>
+                <label>Password
+                    <input type="password" name="registerPassword" required>
+                </label>
+                <label>Repeat Password
+                    <input type="password" name="registerPassword2" required>
+                </label>
+                <button type="submit">Register</button>
+            <div class="switch-link" onclick="showLogin()">Have an account? Click to Login!</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
