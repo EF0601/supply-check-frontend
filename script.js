@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.create-household-btn').onclick = () => {
         const householdName = prompt('Enter household name:');
         if (householdName) {
-            fetch(`https://createHousehold-lrpk2elda-uc.a.run.app?auth=${authcode}`, {
+            fetch(`https://createhousehold-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
+                const identifier = data.identifier; // Get the household identifier from the response
+                currentUserData.households.push(identifier); // Add the new household identifier to the user's households
+                currentUserData.householdNames.push(householdName); // Add the household name to householdNames
                 getHousehold(identifier); // Fetch the newly created household
             })
             .catch(error => {
