@@ -1,5 +1,5 @@
 //! remove for production
-const authcode = "awesome-pigs";
+const authcode = null;
 
 let currentUserData = {
     name: "",
