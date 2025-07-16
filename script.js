@@ -29,34 +29,6 @@ function closeHouseholdPopup() {
     householdOverlay.style.display = 'none';
 }
 
-// Close popup when clicking outside
-householdOverlay.onclick = (e) => {
-    if (e.target === householdOverlay) {
-        closeHouseholdPopup();
-    }
-};
-
-// Close popups with ESC key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeHouseholdPopup();
-        closePopups();
-    }
-});
-
-// Add click handlers for overlay backgrounds
-loginOverlay.onclick = (e) => {
-    if (e.target === loginOverlay) {
-        closePopups();
-    }
-};
-
-registerOverlay.onclick = (e) => {
-    if (e.target === registerOverlay) {
-        closePopups();
-    }
-};
-
 // Add click handlers for household items
 document.addEventListener('DOMContentLoaded', () => {
     const householdItems = document.querySelectorAll('.household-item');
