@@ -72,15 +72,33 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.create-household-btn').onclick = () => {
         const householdName = prompt('Enter household name:');
         if (householdName) {
-            // For now, just create a mock household and show main app
-            currentHouseHoldData.name = householdName;
-            currentHouseHoldData.members = [currentUserData.email];
-            currentHouseHoldData.items = new Map();
-            currentHouseHoldData.owner = currentUserData.email;
-
-            closeHouseholdPopup();
-            showMainApp();
+            fetch(`https://createHousehold-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: currentUserData.email,
+                    householdName: householdName
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(response.status);
+                return response.json();
+            })
+            .then(data => {
+                getHousehold(householdName); // Fetch the newly created household
+            })
+            .catch(error => {
+                console.error("Error creating household:", error);
+                alert('Failed to create household. Please try again.');
+            });
+        } else {
+            alert('Household name cannot be empty.');
         }
+
+        closeHouseholdPopup();
+        showMainApp();
     };
 });
 
