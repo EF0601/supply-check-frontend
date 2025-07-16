@@ -134,10 +134,6 @@ function login(paramEmail, paramPswd) {
         return;
     }
 
-    console.log(JSON.stringify({
-        email: email,
-        pswd: pswd
-    }));
     fetch(`https://login-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
         method: 'POST',
         headers: {
@@ -174,15 +170,11 @@ function login(paramEmail, paramPswd) {
             });
         })
         .catch(error => {
-            console.log(error);
-            // console.log(error && error.response && error.response.status);
             if (error) {
                 const errorCode = String(error).substring(0, 10);
-                console.log(errorCode);
                 switch (errorCode) {
                     case "Error: 401":
                         loginErrorMessage.textContent = 'Wrong email or password. Please try again.';
-                        console.log("Login failed: 401");
                         break;
                     case "Error: 500":
                         loginErrorMessage.textContent = 'Server error. Please try later.';
@@ -212,11 +204,6 @@ function register() {
         return;
     }
 
-    console.log(JSON.stringify({
-        email: email,
-        pswd: pswd,
-        user: user
-    }));
     fetch(`https://register-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
         method: 'POST',
         headers: {
@@ -242,10 +229,9 @@ function register() {
             login(email, pswd); // Call login to set user data
         })
         .catch(error => {
-            console.log(error);
             if (error) {
                 const errorCode = String(error).substring(0, 10);
-                console.log(errorCode);
+
                 switch (errorCode) {
                     case "Error: 401":
                         loginErrorMessage.textContent = 'Wrong email or password. Please try again.';
@@ -267,7 +253,7 @@ function register() {
 }
 
 function getHousehold(household) {
-    console.log(`Getting details for household: ${household}`);
+    // console.log(`Getting details for household: ${household}`);
     fetch(`https://gethousehold-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
         method: 'POST',
         headers: {
@@ -287,7 +273,7 @@ function getHousehold(household) {
             currentHouseHoldData.members = data.members || [];
             currentHouseHoldData.items = new Map(Object.entries(data.items || {}));
             currentHouseHoldData.owner = data.owner || "";
-            console.log("Household details:", currentHouseHoldData);
+            // console.log("Household details:", currentHouseHoldData);
 
             // Show the main app after loading household data
             showMainApp();
@@ -407,9 +393,15 @@ function updateHousehold() {
             return response.json();
         })
         .then(data => {
-            console.log("Household updated successfully:", data);
+            // console.log("Household updated successfully:", data);
         })
         .catch(error => {
             console.error("Error updating household:", error);
         });
 }
+
+setInterval(() => {
+    if (currentHouseHoldData.name) {
+        updateHousehold();
+    }
+}, 5000); // Update every 5 seconds
