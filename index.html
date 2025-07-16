@@ -1,24 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Supply Checker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <button id="openLogin" style="margin:2em auto;display:block;">Login / Register</button>
 
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="welcome-container">
+        <div class="welcome-banner">
+            <h1>Welcome, <span id="welcomeUserScreenName">User</span></h1>
+        </div>
+        <div class="main-content">
+            <button id="openHouseholdManager" class="main-button">Open household manager</button>
+        </div>
+    </div>
+
+    <!-- Main Application Screen -->
+    <div id="mainApp" class="main-app" style="display:none;">
+        <!-- Split Screen Container -->
+        <div class="split-container">
+            <!-- Items List (2/3 of screen) -->
+            <div class="items-section">
+                <h2>Household Items</h2>
+                <div id="itemsList" class="items-list">
+                    <!-- Items will be populated by updateDisplays() -->
+                </div>
+                <br>
+                <button class="menu-action-btn" onclick="addItem()">Add item</button>
+            </div>
+
+            <!-- Menu Section (1/3 of screen) -->
+            <div class="menu-section">
+                <!-- Top Navigation Buttons -->
+                <div class="menu-nav">
+                    <button id="menuBtn1" class="menu-nav-btn active" onclick="showMenuPage(1)">Page 1</button>
+                    <button id="menuBtn2" class="menu-nav-btn" onclick="showMenuPage(2)">Page 2</button>
+                    <button id="menuBtn3" class="menu-nav-btn" onclick="showMenuPage(3)">Page 3</button>
+                </div>
+
+                <!-- Menu Pages -->
+                <div class="menu-content">
+                    <div id="menuPage1" class="menu-page active">
+                        <h3>Settings</h3>
+                        <p>Household settings and preferences</p>
+                        <button class="menu-action-btn">Edit Household</button>
+                        <button class="menu-action-btn">Manage Members</button>
+                    </div>
+
+                    <div id="menuPage2" class="menu-page">
+                        <h3>Reports</h3>
+                        <p>View household statistics and reports</p>
+                        <button class="menu-action-btn">Usage Report</button>
+                        <button class="menu-action-btn">Shopping List</button>
+                    </div>
+
+                    <div id="menuPage3" class="menu-page">
+                        <h3>Actions</h3>
+                        <p>Quick actions and utilities</p>
+                        <button class="menu-action-btn" onclick="addItem()">Add New Item</button>
+                        <button class="menu-action-btn">Export Data</button>
+                        <button class="menu-action-btn" onclick="showWelcomeScreen()">Back to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Household Manager Popup -->
+    <div id="householdOverlay" class="overlay" style="display:none;">
+        <div class="popup household-popup">
+            <button class="close-btn" onclick="closeHouseholdPopup()">&times;</button>
+            <h2>Create a household or choose existing ones from below.</h2>
+
+            <button class="create-household-btn">Create New Household</button>
+            <div id="householdList" class="household-list">
+                <!-- Example households - replace with dynamic content -->
+                <div class="household-item">Household 1</div>
+                <div class="household-item">Household 2</div>
+                <div class="household-item">Household 3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Register overlays (keeping existing functionality) -->
     <div id="loginOverlay" class="overlay" style="display:none;">
         <div class="popup">
             <h2>Login</h2>
-                <label>Email
-                    <input type="text" name="loginEmail" required>
-                </label>
-                <label>Password
-                    <input type="password" name="loginPassword" required>
-                </label>
-                <button onclick="login()">Login</button>
+            <label>Email
+                <input type="text" name="loginEmail" required>
+            </label>
+            <label>Password
+                <input type="password" name="loginPassword" required>
+            </label>
+            <button onclick="login()" class="popupSubmitButton">Login</button>
             <p class="error-message" id="loginErrorMessage"></p>
             <div class="switch-link" onclick="showRegister()">Don't have an account? Register now!</div>
         </div>
@@ -27,23 +105,25 @@
     <div id="registerOverlay" class="overlay" style="display:none;">
         <div class="popup">
             <h2>Register</h2>
-                <label>Email
-                    <input type="text" name="registerEmail" required>
-                </label>
-                <label>Display Name
-                    <input type="text" name="registerUsername" required>
-                </label>
-                <label>Password
-                    <input type="password" name="registerPassword" required>
-                </label>
-                <label>Repeat Password
-                    <input type="password" name="registerPassword2" required>
-                </label>
-                <button type="submit">Register</button>
+            <label>Email
+                <input type="text" name="registerEmail" required>
+            </label>
+            <label>Display Name
+                <input type="text" name="registerUsername" required>
+            </label>
+            <label>Password
+                <input type="password" name="registerPassword" required>
+            </label>
+            <label>Repeat Password
+                <input type="password" name="registerPassword2" required>
+            </label>
+            <button onclick="register()" class="popupSubmitButton">Register</button>
+            <p class="error-message" id="registerErrorMessage"></p>
             <div class="switch-link" onclick="showLogin()">Have an account? Click to Login!</div>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -2,7 +2,110 @@ body {
   font-family: Arial, sans-serif;
   background: #f0f2f5;
   margin: 0;
+  height: 100vh;
 }
+
+/* Welcome Screen Styles */
+.welcome-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3em 2em;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-banner h1 {
+  margin: 0;
+  font-size: 3em;
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+}
+
+.main-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1.5em 3em;
+  font-size: 1.5em;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.main-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+}
+
+.main-button:active {
+  transform: translateY(0);
+}
+
+/* Household Popup Styles */
+.household-popup {
+  width: 500px;
+  max-width: 90vw;
+}
+
+.household-list {
+  margin: 1.5em 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.household-item {
+  padding: 1em 1.5em;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.household-item:last-child {
+  border-bottom: none;
+}
+
+.household-item:hover {
+  background-color: #f0f0f0;
+}
+
+.create-household-btn {
+  width: 100%;
+  padding: 1em;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 1em;
+  transition: background-color 0.2s ease;
+}
+
+.create-household-btn:hover {
+  background: #218838;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -29,30 +132,42 @@ body {
 .popup h2 {
   margin: 0 0 0.5em 0;
 }
+/* Popup form alignment for login/register */
 .popup label {
-  font-size: 0.95em;
+  display: block;
+  margin-bottom: 0.7em;
 }
 .popup input[type='text'],
 .popup input[type='password'] {
   width: 100%;
-  padding: 0.5em;
+  box-sizing: border-box;
+  padding: 0.7em;
   margin-top: 0.2em;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1em;
+  background: #f8f8f8;
+  display: block;
 }
-.popup button {
-  padding: 0.6em;
+.popupSubmitButton {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7em;
+  margin-top: 1em;
   border: none;
   border-radius: 4px;
   background: #0078d4;
   color: #fff;
   font-size: 1em;
   cursor: pointer;
+  transition: background 0.2s;
+  display: block;
 }
 .popup button:hover {
   background: #005fa3;
 }
 .switch-link {
+  margin-top: 1em;
   color: #0078d4;
   cursor: pointer;
   text-decoration: underline;
@@ -63,11 +178,16 @@ body {
   position: absolute;
   top: 0.7em;
   right: 1em;
-  background: none;
+  padding: 0.7em;
+  margin-top: 1em;
   border: none;
-  font-size: 1.2em;
+  border-radius: 4px;
+  background: #0078d4;
+  color: #fff;
+  font-size: 1em;
   cursor: pointer;
-  color: #888;
+  transition: background 0.2s;
+  display: block;
 }
 .close-btn:hover {
   color: #000;
@@ -77,4 +197,213 @@ body {
   color: red;
   font-size: 0.9em;
   margin-top: 0.5em;
+}
+
+/* Main Application Styles */
+.main-app {
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.split-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Items Section (2/3 of screen) */
+.items-section {
+  flex: 2;
+  padding: 2em;
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+}
+
+.items-section h2 {
+  margin: 0 0 1.5em 0;
+  color: #333;
+  font-size: 1.8em;
+  font-weight: 300;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 1.5em;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.item-row:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-title {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.item-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-btn.subtract {
+  background: #dc3545;
+  color: white;
+}
+
+.item-btn.subtract:hover {
+  background: #c82333;
+  transform: scale(1.05);
+}
+
+.item-btn.add {
+  background: #28a745;
+  color: white;
+}
+
+.item-btn.add:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+.item-quantity {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #333;
+  min-width: 40px;
+  text-align: center;
+  padding: 0.5em;
+  background: white;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+}
+
+/* Menu Section (1/3 of screen) */
+.menu-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+}
+
+.menu-nav {
+  display: flex;
+  background: #343a40;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.menu-nav-btn {
+  flex: 1;
+  padding: 1em;
+  background: transparent;
+  border: none;
+  color: #adb5bd;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-right: 1px solid #495057;
+}
+
+.menu-nav-btn:last-child {
+  border-right: none;
+}
+
+.menu-nav-btn:hover {
+  background: #495057;
+  color: white;
+}
+
+.menu-nav-btn.active {
+  background: #007bff;
+  color: white;
+}
+
+.menu-content {
+  flex: 1;
+  padding: 2em;
+  overflow-y: auto;
+}
+
+.menu-page {
+  display: none;
+}
+
+.menu-page.active {
+  display: block;
+}
+
+.menu-page h3 {
+  margin: 0 0 1em 0;
+  color: #333;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.menu-page p {
+  color: #666;
+  margin-bottom: 2em;
+  line-height: 1.5;
+}
+
+.menu-action-btn {
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1em;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menu-action-btn:hover {
+  background: #0056b3;
+}
+
+.menu-action-btn:last-child {
+  margin-bottom: 0;
+}
+
+/* No items message */
+.no-items-message {
+  text-align: center;
+  padding: 3em 2em;
+  color: #666;
+}
+
+.no-items-message p {
+  font-size: 1.2em;
+  margin-bottom: 2em;
 }
