@@ -5,13 +5,14 @@ let currentUserData = {
     name: "",
     email: "",
     households: [],
-    authToken: ""
+    authToken: "",
+    householdNames: [] // Added to store household names separately
 };
 
 let currentHouseHoldData = {
     name: "",
     members: [],
-    items: new Map(), // Using Map to store items with their quantities
+    items: {}, // Using object to store items with their quantities
     owner: ""
 };
 
@@ -34,9 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const householdItems = document.querySelectorAll('.household-item');
     householdItems.forEach(item => {
         item.onclick = () => {
-            // alert(`Selected household: ${item.textContent}`);
             closeHouseholdPopup();
-            getHousehold(item.textContent);
         };
     });
 
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.create-household-btn').onclick = () => {
         const householdName = prompt('Enter household name:');
         if (householdName) {
-            fetch(`https://createHousehold-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
+            fetch(`https://createHousehold-lrpk2elda-uc.a.run.app?auth=${authcode}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -59,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                getHousehold(householdName); // Fetch the newly created household
+                getHousehold(identifier); // Fetch the newly created household
             })
             .catch(error => {
                 console.error("Error creating household:", error);
@@ -126,6 +125,7 @@ function login(paramEmail, paramPswd) {
 
             document.getElementById('welcomeUserScreenName').textContent = currentUserData.name;
             currentUserData.households = data.households || [];
+            currentUserData.householdNames = data.householdNames || []; // Store household names
             closePopups();
             // update household list
             const householdList = document.getElementById('householdList');
@@ -133,7 +133,7 @@ function login(paramEmail, paramPswd) {
             currentUserData.households.forEach(household => {
                 const item = document.createElement('div');
                 item.className = 'household-item';
-                item.textContent = household;
+                item.textContent = currentUserData.householdNames[currentUserData.households.indexOf(household)] || household;
                 item.onclick = () => {
                     closeHouseholdPopup();
                     getHousehold(household);
@@ -233,7 +233,7 @@ function getHousehold(household) {
         },
         body: JSON.stringify({
             requester: currentUserData.email,
-            householdName: household
+            identifier: household
         })
     })
         .then(response => {
@@ -243,7 +243,7 @@ function getHousehold(household) {
         .then(data => {
             currentHouseHoldData.name = data.name || "";
             currentHouseHoldData.members = data.members || [];
-            currentHouseHoldData.items = new Map(Object.entries(data.items || {}));
+            currentHouseHoldData.items = data.items;
             currentHouseHoldData.owner = data.owner || "";
             // console.log("Household details:", currentHouseHoldData);
 
@@ -291,10 +291,10 @@ function showMainApp() {
 
 // Function to update item quantity
 function updateItemQuantity(itemName, change) {
-    if (currentHouseHoldData.items.has(itemName)) {
-        const currentQuantity = currentHouseHoldData.items.get(itemName);
+    if (currentHouseHoldData.items.hasOwnProperty(itemName)) {
+        const currentQuantity = currentHouseHoldData.items[itemName];
         const newQuantity = Math.max(0, currentQuantity + change); // Don't allow negative quantities
-        currentHouseHoldData.items.set(itemName, newQuantity);
+        currentHouseHoldData.items[itemName] = newQuantity;
         updateDisplays(); // Refresh the display
     }
 }
@@ -317,7 +317,8 @@ function updateDisplays() {
     }
 
     // Create item rows for each item in the map
-    currentHouseHoldData.items.forEach((quantity, itemName) => {
+    Object.keys(currentHouseHoldData.items).forEach(itemName => {
+        const quantity = currentHouseHoldData.items[itemName];
         const itemRow = document.createElement('div');
         itemRow.className = 'item-row';
 
@@ -338,42 +339,43 @@ function updateDisplays() {
 function addItem() {
     const itemName = prompt('Enter item name:');
     if (itemName && itemName.trim()) {
-        currentHouseHoldData.items.set(itemName.trim(), 1);
+        currentHouseHoldData.items[itemName.trim()] = 1; // Add new item with quantity 1
         updateDisplays();
     }
 }
+let pastSaveHouseholdData;
 
 function updateHousehold() {
-    currentHouseHoldData.items = Object.fromEntries(currentHouseHoldData.items); // Convert Map to object for JSON serialization
-
-    fetch("https://updatehousehold-lrpk2e3lda-uc.a.run.app?auth=" + authcode, {
+    fetch(`https://updatehousehold-lrpk2e3lda-uc.a.run.app?auth=${authcode}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             email: currentUserData.email,
-            householdName: currentHouseHoldData.name,
-            updates: currentHouseHoldData // Remove the outer braces
+            identifier: currentUserData.households[currentUserData.householdNames.indexOf(currentHouseHoldData.name)],
+            updates: currentHouseHoldData
         })
     })
         .then(response => {
             // console.log(JSON.stringify(currentHouseHoldData));
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Network response was not ok: ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
             // console.log("Household updated successfully:", data);
+            pastSaveHouseholdData = JSON.stringify(currentHouseHoldData); // Store a copy of the current data
         })
         .catch(error => {
             console.error("Error updating household:", error);
         });
 }
 
+
 setInterval(() => {
-    if (currentHouseHoldData.name) {
+    if (currentHouseHoldData.name && JSON.stringify(currentHouseHoldData) != pastSaveHouseholdData) {
         updateHousehold();
     }
-}, 5000); // Update every 5 seconds
+}, 15000); // Update every 15 seconds
