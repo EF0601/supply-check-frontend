@@ -407,4 +407,6 @@ function updateDecor(){
     document.getElementById('welcomeUserGreet').textContent = greeting;
 }
 
-updateDecor(); // Initial call to set wallpaper and greeting
+setTimeout(() => {
+    updateDecor(); // Initial call to set wallpaper and greeting
+}, 1000);
