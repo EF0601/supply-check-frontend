@@ -18,6 +18,20 @@ body {
   padding: 3em 2em;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.welcomeScreenActions button{
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  cursor: pointer;
+  margin-left: 1em;
+  transition: background-color 0.2s ease;
 }
 
 .welcome-banner h1 {
@@ -35,7 +49,7 @@ body {
   padding: 2em;
 }
 
-.main-button {
+.main-button{
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
@@ -174,7 +188,7 @@ body {
   font-size: 0.95em;
   text-align: center;
 }
-.close-btn {
+.close-btn{
   position: absolute;
   top: 0.7em;
   right: 1em;

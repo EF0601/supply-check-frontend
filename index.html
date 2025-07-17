@@ -12,9 +12,16 @@
     <!-- Welcome Screen -->
     <div id="welcomeScreen" class="welcome-container">
         <div class="welcome-banner">
-            <h1>Welcome, <span id="welcomeUserScreenName">User</span></h1>
+            <div>
+                <h1>Good morning, <span id="welcomeUserScreenName">User</span></h1>
+            </div>
+            <div class="welcomeScreenActions">
+                <button onclick="location.reload()">Log out</button>
+                <button>Account settings</button>
+                <button>Help</button>
+            </div>
         </div>
-        <div class="main-content">
+        <div class="main-content" id="wallpaperContainer">
             <button id="openHouseholdManager" class="main-button">Open household manager</button>
         </div>
     </div>

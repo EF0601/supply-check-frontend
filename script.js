@@ -93,7 +93,7 @@ function closePopups() {
     registerOverlay.style.display = 'none';
 }
 
-showLogin(); // Commented out to show welcome screen instead
+showLogin(); // Default login screen on page load
 
 
 
@@ -382,3 +382,9 @@ setInterval(() => {
         updateHousehold();
     }
 }, 15000); // Update every 15 seconds
+
+setInterval(() => {
+    // change wallpaper
+    document.getElementById('wallpaperContainer').style.backgroundImage = `url('https://picsum.photos/seed/${Math.random()}/1920/1080')`;
+}, 60000);
+document.getElementById('wallpaperContainer').style.backgroundImage = `url('https://picsum.photos/seed/${Math.random()}/1920/1080')`;
