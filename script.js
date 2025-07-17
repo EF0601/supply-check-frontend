@@ -388,26 +388,21 @@ setInterval(updateDecor, 60000);
 function updateDecor(){
     // updates wallpaper and greeting
     // change wallpaper
-    const greets = ["Good morning", "Good afternoon", "Good evening", "Hello", "Welcome back", "Greetings", "Salutations"];
+    const greets = ["Good morning", "Good afternoon", "Good evening", "Hello"];
 
     document.getElementById('wallpaperContainer').style.backgroundImage = `url('https://picsum.photos/seed/${Math.random()}/1920/1080')`;
 
     let greeting = "Hello";
 
-    if (Math.random() < 0.5) {
-        greeting = greets[Math.floor(Math.random() * (7 - 3 + 1)) + 3];
-    }
-    else {
-        const currentHour = new Date().getHours();
-        if (currentHour < 12) {
-            greeting = greets[0]; // Good morning
-        } else if (currentHour < 18) {
-            greeting = greets[1]; // Good afternoon
-        } else if (currentHour < 22) {
-            greeting = greets[2]; // Good evening
-        } else {
-            greeting = greets[3]; // Hello
-        }
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+        greeting = greets[0]; // Good morning
+    } else if (currentHour < 18) {
+        greeting = greets[1]; // Good afternoon
+    } else if (currentHour < 22) {
+        greeting = greets[2]; // Good evening
+    } else {
+        greeting = greets[3]; // Hello
     }
     document.getElementById('welcomeUserGreet').textContent = greeting;
 }
